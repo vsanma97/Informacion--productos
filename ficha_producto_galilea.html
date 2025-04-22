@@ -22,14 +22,11 @@
             padding: 2em;
             border-radius: 12px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            max-width: 700px;
+            max-width: 500px;
             margin: auto;
         }
         h2 {
             color: #c8102e;
-        }
-        p {
-            margin: 0.5em 0;
         }
     </style>
 </head>
@@ -53,20 +50,14 @@
             const filas = data.split("\n").slice(1); // omitir encabezado
 
             for (const fila of filas) {
-                const celdas = fila.split(";");
-                if (celdas[0] === codigo) {
-                    const campos = [
-                        "Descripción", "Estado de stock", "Stock Mínimo", "Cantidad en Stock",
-                        "Última etapa comprada", "Etapa en ejecución", "Cantidad presupuestada etapa",
-                        "Cantidad presupuestada por lote", "Cantidad comprada", "Cantidad recibida",
-                        "Cantidad entregada", "Cantidad entregada semanalmente"
-                    ];
-
-                    let html = "";
-                    for (let i = 1; i < celdas.length; i++) {
-                        html += `<p><strong>${campos[i-1]}:</strong> ${celdas[i]}</p>`;
-                    }
-                    document.getElementById("contenido").innerHTML = html;
+                const [A, B, C, D, E] = fila.split(",");
+                if (A === codigo) {
+                    document.getElementById("contenido").innerHTML = `
+                        <p><strong>Producto:</strong> ${B}</p>
+                        <p><strong>Precio:</strong> $${C}</p>
+                        <p><strong>Stock:</strong> ${D} unidades</p>
+                        <p><strong>Categoría:</strong> ${E}</p>
+                    `;
                     return;
                 }
             }
